@@ -70,7 +70,7 @@ eval(command)
 % store essential info in STUDY struct for later reading
 STUDY.etc.bemobil.clustering.preclustparams.clustering_weights = clustering_weights;
 STUDY.etc.bemobil.clustering.preclustparams.freqrange = freqrange;
-STUDY.etc.bemobil.clustering.preclustparams.timewindow = timewindow;
+%STUDY.etc.bemobil.clustering.preclustparams.timewindow = timewindow;
 
 % save on disk
 if save_file_on_disk
