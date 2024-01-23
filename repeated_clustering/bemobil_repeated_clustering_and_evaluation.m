@@ -106,14 +106,10 @@ end
 %% cluster (takes time...)
 
 filename_clustering_solutions_with_path = fullfile(filepath_clustering_solutions, filename_clustering_solutions);
-keyboard
 if do_clustering
-    
     clustering_solutions = bemobil_repeated_clustering(STUDY,ALLEEG, n_iterations, n_clust, outlier_sigma, STUDY.etc.bemobil.clustering.preclustparams);
-    
-    keyboard
     disp('Saving clustering solutions...')
-    save(filename_clustering_solutions_with_path,'clustering_solutions','-v7.3')
+    save(filename_clustering_solutions_with_path,'clustering_solutions')
     disp('...done.')
 else
     disp('Loading clustering solutions...')
