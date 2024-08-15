@@ -38,6 +38,8 @@
 %   filename_clustering_solutions   - filename of the repeated clustering solutions' data set
 %   filepath_multivariate_data      - filepath where the multivariate data should be saved
 %   filename_multivariate_data      - filename of the multivariate data set
+%   para_on                         - [1] use parallel processing
+%                                       [0] don't use parallel processing (default)
 %   
 %
 % Outputs:
@@ -62,7 +64,7 @@
 
 function [STUDY, ALLEEG, EEG] = bemobil_repeated_clustering_and_evaluation(STUDY, ALLEEG, EEG, outlier_sigma, n_clust,...
     n_iterations, cluster_ROI_MNI, quality_measure_weights, do_clustering, do_multivariate_data, filepath_STUDY,filename_STUDY,...
-    filepath_clustering_solutions, filename_clustering_solutions, filepath_multivariate_data, filename_multivariate_data)
+    filepath_clustering_solutions, filename_clustering_solutions, filepath_multivariate_data, filename_multivariate_data, para_on)
 
 % check if files already exist and show warning if it does
 % STUDY
@@ -107,7 +109,11 @@ end
 
 filename_clustering_solutions_with_path = fullfile(filepath_clustering_solutions, filename_clustering_solutions);
 if do_clustering
-    clustering_solutions = bemobil_repeated_clustering(STUDY,ALLEEG, n_iterations, n_clust, outlier_sigma, STUDY.etc.bemobil.clustering.preclustparams);
+    if para_on == 1
+        clustering_solutions = bemobil_repeated_clustering_par(STUDY,ALLEEG, n_iterations, n_clust, outlier_sigma, STUDY.etc.bemobil.clustering.preclustparams);
+    else
+        clustering_solutions = bemobil_repeated_clustering(STUDY,ALLEEG, n_iterations, n_clust, outlier_sigma, STUDY.etc.bemobil.clustering.preclustparams);
+    end
     disp('Saving clustering solutions...')
     save(filename_clustering_solutions_with_path,'clustering_solutions')
     disp('...done.')
